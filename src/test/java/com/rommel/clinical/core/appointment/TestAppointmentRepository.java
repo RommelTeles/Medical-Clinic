@@ -12,9 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.rommel.clinical.core.appointment.entity.Appointment;
+import com.rommel.clinical.core.appointment.repository.AppointmentRepository;
 import com.rommel.clinical.core.customer.TestCustomerRepository;
-import com.rommel.clinical.core.customer.appointment.entity.Appointment;
-import com.rommel.clinical.core.customer.appointment.repository.AppointmentRepository;
 import com.rommel.clinical.core.customer.entity.Customer;
 import com.rommel.clinical.core.customer.repository.CustomerRepository;
 import com.rommel.clinical.core.doctor.TestDoctorRepository;

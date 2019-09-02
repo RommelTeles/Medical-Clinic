@@ -1,4 +1,4 @@
-package com.rommel.clinical.core.customer.appointment.entity;
+package com.rommel.clinical.core.appointment.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
