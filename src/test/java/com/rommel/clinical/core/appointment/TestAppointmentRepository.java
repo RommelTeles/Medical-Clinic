@@ -20,6 +20,9 @@ import com.rommel.clinical.core.customer.repository.CustomerRepository;
 import com.rommel.clinical.core.doctor.TestDoctorRepository;
 import com.rommel.clinical.core.doctor.entity.Doctor;
 import com.rommel.clinical.core.doctor.repository.DoctorRepository;
+import com.rommel.clinical.utils.AppointmentCreator;
+import com.rommel.clinical.utils.CustomerCreator;
+import com.rommel.clinical.utils.DoctorCreator;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -46,7 +49,12 @@ public class TestAppointmentRepository {
 
 	@Test
 	public void testInsertOK() {
-		Appointment appointment = createAppointment();
+		Customer customer = CustomerCreator.create("Marcelo Paiva", "Coroa do Aviao");
+		this.customerRepository.save(customer);
+		Doctor doctor = DoctorCreator.create("Jota Ferreira", "Sem Nome", "0001/PE");
+		this.doctorRepository.save(doctor);
+		Appointment appointment = AppointmentCreator.create(customer, doctor, LocalDate.now());
+		
 		this.repository.save(appointment);
 		Assert.assertThat(appointment.getId(), CoreMatchers.notNullValue());
 
@@ -54,7 +62,13 @@ public class TestAppointmentRepository {
 	
 	@Test
 	public void testGet() {
-		Appointment appointment = createAppointment();
+		
+		Customer customer = CustomerCreator.create("Siclano", "Jacaré");
+		this.customerRepository.save(customer);
+		Doctor doctor = DoctorCreator.create("Fulano", "Sem Nome", "0000/PE");
+		this.doctorRepository.save(doctor);
+		Appointment appointment = AppointmentCreator.create(customer, doctor, LocalDate.now());
+
 		this.repository.save(appointment);
 		Optional<Appointment> appointmentFromDB = this.repository.findById(appointment.getId());
 		
@@ -68,16 +82,5 @@ public class TestAppointmentRepository {
 		Assert.assertThat(appointment.getDate(),
                 CoreMatchers.equalTo(appointmentFromDB.get().getDate()));
 		
-	}
-
-	private Appointment createAppointment() {
-		
-		Customer customer = TestCustomerRepository.createCustomer();
-		this.customerRepository.save(customer);
-		Doctor doctor = TestDoctorRepository.createDoctor();
-		this.doctorRepository.save(doctor);
-		
-		return new Appointment(null, customer, doctor,
-				LocalDate.now());
 	}
 }

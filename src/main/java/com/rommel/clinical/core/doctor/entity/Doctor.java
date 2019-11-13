@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -25,7 +26,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = false, of = {"id"})
 @Entity
-@Table(name = "TB_DOCTOR")
+@Table(name = "TB_DOCTOR", uniqueConstraints= @UniqueConstraint(columnNames={"DOC_CRM"}))
 @SequenceGenerator(name = "DOC_SEQ", sequenceName = "DOC_SEQ", allocationSize = 1)
 public class Doctor implements Serializable{
 	

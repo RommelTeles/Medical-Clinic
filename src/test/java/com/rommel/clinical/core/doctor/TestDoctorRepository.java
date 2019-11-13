@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.rommel.clinical.core.doctor.entity.Doctor;
 import com.rommel.clinical.core.doctor.repository.DoctorRepository;
+import com.rommel.clinical.utils.DoctorCreator;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -23,7 +24,7 @@ public class TestDoctorRepository {
 	private DoctorRepository repository;
 	
     @Test
-    public void testInsertError() {
+    public void test001InsertError() {
         Doctor doctor = new Doctor();
         try {
             repository.save(doctor);
@@ -34,15 +35,15 @@ public class TestDoctorRepository {
     }
     
     @Test
-    public void testInsertOK() {
-    	Doctor doctor = createDoctor();
+    public void test002InsertOK() {
+    	Doctor doctor = DoctorCreator.create("Carol Teles", "Salgueiro", "12345/PE");
     	this.repository.save(doctor);
     	Assert.assertThat(doctor.getId(), CoreMatchers.notNullValue());
     }
     
     @Test
-    public void testGet() {
-    	Doctor doctor = createDoctor();
+    public void test003Get() {
+    	Doctor doctor = DoctorCreator.create("Heladio Teles", "Crato", "23456/PE");
     	this.repository.save(doctor);
     	Optional<Doctor> doctorFromDB = this.repository.findById(doctor.getId());
     	Assert.assertThat(doctor.getId(),
@@ -53,7 +54,4 @@ public class TestDoctorRepository {
                 CoreMatchers.equalTo(doctorFromDB.get().getAddress()));
     }
 
-	public static Doctor createDoctor() {
-    	return new Doctor(null, "Carol Teles", "Salgueiro-PE", "12345/PE");
-	}
 }

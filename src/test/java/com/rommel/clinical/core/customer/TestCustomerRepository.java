@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.rommel.clinical.core.customer.entity.Customer;
 import com.rommel.clinical.core.customer.repository.CustomerRepository;
+import com.rommel.clinical.utils.CustomerCreator;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,9 +23,7 @@ public class TestCustomerRepository {
     @Autowired
     private CustomerRepository repository;
 
-    /**
-     * Testa que o insert vai acontecer com erro, pois nenhum dado foi informado.
-     */
+ 
     @Test
     public void testInsertError() {
         Customer customer = new Customer();
@@ -39,7 +38,7 @@ public class TestCustomerRepository {
     @Test
     public void testInsertOK() {
     	
-    	Customer customer = createCustomer();
+    	Customer customer = CustomerCreator.create("Carine", "Sem");
     	this.repository.save(customer);
         Assert.assertThat(customer.getId(), CoreMatchers.notNullValue());
     }
@@ -47,7 +46,7 @@ public class TestCustomerRepository {
     @Test
     public void testGet() {
     	
-    	Customer customer = createCustomer();
+    	Customer customer = CustomerCreator.create("Rommel", "Sem");
     	this.repository.save(customer);
     	
     	Optional<Customer> customerFromDB = this.repository.findById(customer.getId());
@@ -61,9 +60,5 @@ public class TestCustomerRepository {
     	
     	
     }
-
-	public static Customer createCustomer() {
-		return new Customer(null, "Rommel Salviano Teles", "Av.Marcos Freire, 4443");
-	}
 
 }

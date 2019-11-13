@@ -20,7 +20,7 @@ public abstract class AbstractService<T extends Serializable> {
 
 	@Transactional(rollbackFor = Throwable.class)
 	public void delete(Long id) {
-		this.getRepository().deleteById(id);
+		this.getRepository().deleteById(id); 
 	}
 
 	@Transactional(rollbackFor = Throwable.class)
@@ -44,7 +44,7 @@ public abstract class AbstractService<T extends Serializable> {
 	public List<T> findAll() {
 		return this.getRepository().findAll();
 	}
-
+	
 	private T insertOrUpdate(T entity) {
 		return getRepository().save(entity);
 	}
