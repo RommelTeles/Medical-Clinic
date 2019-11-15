@@ -13,6 +13,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,6 +30,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "TB_CUSTOMER")
 @SequenceGenerator(name = "CUST_SEQ", sequenceName = "CUST_SEQ", allocationSize = 1)
+@JsonTypeName("customer")
+@JsonTypeInfo(include = JsonTypeInfo.As.PROPERTY, use = JsonTypeInfo.Id.NAME)
 public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 1L;

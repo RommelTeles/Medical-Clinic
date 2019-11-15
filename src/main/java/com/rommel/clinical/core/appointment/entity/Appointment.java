@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.rommel.clinical.core.customer.entity.Customer;
 import com.rommel.clinical.core.doctor.entity.Doctor;
 
@@ -33,6 +36,8 @@ import lombok.Setter;
 @Table(name = "TB_APPOINTMENT", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"FK_CUST", "FK_DOC"})})
 @SequenceGenerator(name = "APP_SEQ", sequenceName = "APP_SEQ", allocationSize = 1)
+@JsonTypeName("appointment")
+@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 public class Appointment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -56,6 +61,7 @@ public class Appointment implements Serializable {
 	
 	@NotNull
 	@Column(name = "APP_DATE", nullable = false)
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate date;
 
 }
